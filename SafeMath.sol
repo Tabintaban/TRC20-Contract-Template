@@ -12,6 +12,17 @@ pragma solidity ^0.5.0;
  *
  * Using this library instead of the unchecked operations eliminates an entire
  * class of bugs, so it's recommended to use it always.
+
+ * @dev Обтекает арифметические операции Solidity с добавлением переполнения
+ * проверяет.
+ *
+ * Арифметические операции в Solidity обтекаются при переполнении. Это может легко привести
+ * в багах, потому что программисты обычно предполагают, что переполнение вызывает
+ * ошибку, что является стандартным поведением в языках программирования высокого уровня.
+ * `SafeMath` восстанавливает эту интуицию, возвращая транзакцию при переполнении операции. 
+ *
+ * Использование этой библиотеки вместо непроверенных операций устраняет целый класс ошибок,
+ * поэтому рекомендуется использовать ее всегда.
  */
 library SafeMath {
     /**
@@ -22,6 +33,14 @@ library SafeMath {
      *
      * Requirements:
      * - Addition cannot overflow.
+
+     * @dev Возвращает сложение двух целых чисел без знака, возвращающееся при
+     * переполнении.
+     *
+     * Аналогично оператору Solidity `+`.
+     *
+     * Требования:
+     * - При сложении не может быть переполнения.
      */
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a + b;
@@ -38,6 +57,14 @@ library SafeMath {
      *
      * Requirements:
      * - Subtraction cannot overflow.
+
+     * @dev Возвращает вычитание двух целых чисел без знака, возвращающееся при
+     * переполнении (когда результат отрицательный).
+     *
+     * Аналогично оператору Solidity `-`.
+     *
+     * Требования:
+     * - При вычитании не может быть переполнения
      */
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b <= a, "SafeMath: subtraction overflow");
@@ -54,6 +81,14 @@ library SafeMath {
      *
      * Requirements:
      * - Multiplication cannot overflow.
+
+     * @dev Возвращает умножение двух целых чисел без знака, возвращающееся при
+     * переполнении.
+     *
+     * Аналогично оператору Solidity `*`.
+     *
+     * Требования:
+     * - При умножении не может быть переполнения.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
         // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
@@ -79,6 +114,16 @@ library SafeMath {
      *
      * Requirements:
      * - The divisor cannot be zero.
+
+     * @dev Возвращает целочисленное деление двух целых чисел без знака. Возвращает значение при
+     * делении на ноль. Результат округляется до нуля.
+     *
+     * Аналогично оператору Solidity `/`. Примечание: эта функция использует
+     * код операции "revert" (который оставляет оставшийся газ нетронутым), в то время как Solidity
+     * использует недопустимый код операции для возврата (расходования всего оставшегося газа).
+     *
+     * Требования:
+     * - Делитель не может быть равен нулю.
      */
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // Solidity only automatically asserts when dividing by 0
@@ -99,6 +144,16 @@ library SafeMath {
      *
      * Requirements:
      * - The divisor cannot be zero.
+
+     * @dev Возвращает остаток от деления двух целых чисел без знака. (целое число без знака по модулю),
+     * Возвращает значение при делении на ноль.
+     *
+     * Аналогично оператору Solidity "%`. Эта функция использует `revert`
+     * код операции (который оставляет оставшийся газ нетронутым), в то время как Solidity использует
+     * недопустимый код операции для возврата (расходования всего оставшегося газа).
+     *
+     * Требования:
+     * - Делитель не может быть равен нулю.
      */
     function mod(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b != 0, "SafeMath: modulo by zero");
